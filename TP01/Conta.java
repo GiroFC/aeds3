@@ -11,7 +11,7 @@ import java.io.DataInputStream;
 import java.io.IOException;
 // import java.util.ArrayList;
 
-public class ContaBancaria {
+public class Conta {
     protected Byte idConta;
     protected String nomePessoa;
     // protected short numEmails;
@@ -24,8 +24,8 @@ public class ContaBancaria {
     protected float saldoConta;
 
     //instâncias
-    public ContaBancaria(Byte idConta, String nomePessoa, String nomeUsusario,
-            String senha, String cpf, String cidade, int transferenciasRealizadas, float saldoConta) {   
+    public Conta(Byte idConta, String nomePessoa, String nomeUsusario,
+            String senha, String cpf, String cidade) {   
                     this.idConta = idConta;
                     this.nomePessoa = nomePessoa;
                     // this.numEmails = numEmails;
@@ -36,11 +36,11 @@ public class ContaBancaria {
                     this.senha = senha;
                     this.cpf = cpf;
                     this.cidade = cidade;
-                    this.transferenciasRealizadas = transferenciasRealizadas;
-                    this.saldoConta = saldoConta;
+                    this.transferenciasRealizadas = 0;
+                    this.saldoConta = 0;
     }
 
-    public ContaBancaria(){
+    public Conta(){
         idConta = -1;
         nomePessoa = "";
         // numEmails = 0;
@@ -54,8 +54,13 @@ public class ContaBancaria {
     }
 
 
+    public byte getId() {
+        return idConta;
+    }
+
+
     //Getters e Setters
-    public Byte getIdConta(){return idConta;}
+    public int getIdConta(){return idConta;}
     public void setIdConta(Byte idConta) {this.idConta = idConta;}
 
     public String getNomePessoa() {return nomePessoa;}
@@ -75,7 +80,7 @@ public class ContaBancaria {
 
     public String getCpf() {return cpf;}
     public void setCpf(String cpf) {this.cpf = cpf;}
-
+    
 
     public String getCidade() {return cidade;}
     public void setCidade(String cidade) {this.cidade = cidade;}
@@ -112,7 +117,7 @@ public class ContaBancaria {
     * @return
     * @throws IOException
     */
-    public byte[] TBA() throws IOException {
+    public byte[] toByteArray() throws IOException {
 
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
     DataOutputStream dos = new DataOutputStream(baos);
@@ -139,7 +144,7 @@ public class ContaBancaria {
     * @param ba parametro que recebe byte array
     * @throws IOException
     */
-    public void FBA(byte[] ba) throws IOException {
+    public void fromByteArray(byte[] ba) throws IOException {
         ByteArrayInputStream bais = new ByteArrayInputStream(ba);
         DataInputStream dis = new DataInputStream(bais);
         idConta = dis.readByte();
@@ -152,8 +157,8 @@ public class ContaBancaria {
         senha = dis.readUTF();
         cpf = dis.readUTF();
         cidade = dis.readUTF();
-        transferenciasRealizadas = dis.readByte();
-        saldoConta = dis.readByte();
+        transferenciasRealizadas = dis.readInt();
+        saldoConta = dis.readFloat();
     }
 
     // private String emailsString(){

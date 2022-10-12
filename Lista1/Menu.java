@@ -1,5 +1,12 @@
+/**
+ * Classe menu que faz todas as chamadas de metodos e criaçõo de interface no terminal
+ * @author Igor Franco
+ * Matrícula: 750077
+ */
+
 import java.io.IOException;
 import java.io.RandomAccessFile;
+// import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Menu extends ContaBancaria {
@@ -31,66 +38,80 @@ public class Menu extends ContaBancaria {
     System.out.println("+-------------------------------------------+");
     System.out.println("|        Menu de Opções                     |");
     System.out.println("+-------------------------------------------+");
-    System.out.println("| Opção 1 - Criar uma nova Conta             |");
+    System.out.println("| Opção 1 - Criar uma nova Conta            |");
     System.out.println("| Opção 2 - Mostrar as Contas               |");
-    System.out.println("| Opção 3 - Editar uma Conta                 |");
-    System.out.println("| Opção 4 - Remover uma Conta                |");
-    System.out.println("| Opção 5 - Fazer Transferencia               |");
+    System.out.println("| Opção 3 - Editar uma Conta                |");
+    System.out.println("| Opção 4 - Remover uma Conta               |");
+    System.out.println("| Opção 5 - Fazer Transferencia             |");
     System.out.println("| Opção 99 - Sair                           |");
     System.out.println("|-------------------------------------------|");
     System.out.println("Digite a opção desejada");
   }
 
   /**
-   * Menu para interação do usuário para criar uma cconta
+   * Menu para interação do usuário para criar uma conta
    * @param id é passado nesse metodo para ser incrementado, se não existir ccontas salvas vai ser iniciado com 0
    */
-  public static void op1(int id) {
+  public static void op1(int id)throws Exception {
     CRUD crud = new CRUD();
-    Scanner scannerOp1 = new Scanner(System.in);
-    String nome;
-    String cpf;
-    String cidade;
-    String nomeUsu;
-    String senha;
+    try (Scanner scannerOp1 = new Scanner(System.in)) {
+      String nome;
+      // short numEmails;
+      // ArrayList<String> emails = new ArrayList<>();
+      String nomeUsuario;
+      String senha;
+      String cpf;
+      String cidade;
 
-    Menu.limpatela();
-    System.out.println("+-------------------------------------------+");
-    System.out.println("|        Criar uma Conta                     |");
-    System.out.println("+-------------------------------------------+");
+      Menu.limpatela();
+      System.out.println("+-------------------------------------------+");
+      System.out.println("|        Criar uma Conta                    |");
+      System.out.println("+-------------------------------------------+");
 
-    System.out.println("Aperte Enter para iniciar...");
-    scannerOp1.nextLine();
+      System.out.println("Aperte Enter para iniciar...");
+      scannerOp1.nextLine();
 
-    System.out.print("Digite o nome da Conta ->");
-    nome = scannerOp1.nextLine();
+      System.out.print("Digite o nome completo do usuario da Conta ->");
+      nome = scannerOp1.nextLine();
 
-    System.out.print("Digite o CPF da Conta ->");
-    cpf = scannerOp1.nextLine();
+      // System.out.print("Quantos emails sua conta terá? ");
+      // numEmails = scannerOp1.nextShort();
 
-    System.out.print("Digite a cidade da Conta ->");
-    cidade = scannerOp1.nextLine();
+      
+      // scannerOp1.nextLine();
 
-    System.out.print("Digite a senha da Conta ->");
-    senha = scannerOp1.nextLine();
+      // for(int i = 0; i < numEmails; i++){
+      //   System.out.println("Digite o email de numero " + (i+1) + ":");
+      //   emails.add(scannerOp1.nextLine());
+      // }
 
-    System.out.print("Digite o nome de usuario da Conta ->");
-    nomeUsu = scannerOp1.nextLine();
+      System.out.print("Digite o nome de usuario da Conta ->");
+      nomeUsuario = scannerOp1.nextLine();
 
-    id = ultimoId(id);
-    id++;
+      System.out.print("Digite a senha da Conta ->");
+      senha = scannerOp1.nextLine();
 
-    ContaBancaria novaConta = new ContaBancaria((byte) id, nome, cpf, cidade, 0, 0);
-    crud.C(novoConta, id);
+      System.out.print("Digite o CPF da Conta ->");
+      cpf = scannerOp1.nextLine();
 
-    System.out.println("Conta criada com sucesso!!! O Id da sua conta é " + id);
-    System.out.println("Aperte Enter para voltar para o menu...");
-    scannerOp1.nextLine();
+      System.out.print("Digite a cidade da Conta ->");
+      cidade = scannerOp1.nextLine();
+
+      id = ultimoId(id);
+      id++;
+
+      ContaBancaria novaConta = new ContaBancaria((byte) id, nome, nomeUsuario, senha, cpf, cidade, 0, 0);
+      crud.C(novaConta, id);
+
+      System.out.println("Conta criada com sucesso!!! O Id da sua conta é " + id);
+      System.out.println("Aperte Enter para voltar para o menu...");
+      scannerOp1.nextLine();
+    }
 
   }
 
   /**
-   * metodo para chamar a lista de clubes
+   * metodo para chamar a lista de contas
    * */
   public static void op2() {
     Menu.limpatela();
@@ -111,47 +132,65 @@ public class Menu extends ContaBancaria {
   public static void op3() {
     Menu.limpatela();
     System.out.println("+-------------------------------------------+");
-    System.out.println("|        Editar uma Conta                    |");
+    System.out.println("|        Editar uma Conta                   |");
     System.out.println("+-------------------------------------------+");
 
-    String novoNome;
-    String novoCpf;
-    String novaCidade;
+      String novoNome;
+      // short novonumEmails = 1;
+      // ArrayList<String> novosemails = new ArrayList<>();
+      String novoNomeUsuario;
+      String novaSenha;
+      String novoCpf;
+      String novaCidade;
 
-    Scanner sc = new Scanner(System.in);
-    CRUD crud = new CRUD();
+    try (Scanner sc = new Scanner(System.in)) {
+      CRUD crud = new CRUD();
 
-    System.out.println("Insira o ID da Cconta que deseja modificar: ");
-    System.out.print("ID escolhido: ");
-    int id;
-    id = sc.nextInt();
+      System.out.println("Insira o ID da Cconta que deseja modificar: ");
+      System.out.print("ID escolhido: ");
+      int id;
+      id = sc.nextInt();
 
-    //se o clube existir fazemos  upload
-    if (crud.pesquisaId(id)) {
-      Menu.limpatela();
-      System.out.println("+-------------------------------------------+");
-      System.out.println("|        Novos dados da Conta               |");
-      System.out.println("+-------------------------------------------+");
-      sc.nextLine();
-      System.out.print("Digite o novo nome-> ");
-      novoNome = sc.nextLine();
-      System.out.print("Digite o novo CPF-> ");
-      novoCpf = sc.nextLine();
-      System.out.print("Digite a nova Cidade-> ");
-      novaCidade = sc.nextLine();
+      //se o clube existir fazemos  upload
+      if (crud.pesquisaId(id)) {
+        Menu.limpatela();
+        System.out.println("+-------------------------------------------+");
+        System.out.println("|        Novos dados da Conta               |");
+        System.out.println("+-------------------------------------------+");
+        sc.nextLine();
+        System.out.print("Digite o novo nome-> ");
+        novoNome = sc.nextLine();
+        
+        // System.out.print("Quantos emails sua conta terá? ");
+        // novonumEmails = sc.nextShort();
 
-      ContaBancaria novoConta = new ContaBancaria(id, novoNome, novoCpf, novaCidade, 0, 0);
+        // for(int i = 0; i < novonumEmails; i++){
+        //   System.out.println("Digite o email de numero " + (i+1) + ":");
+        //   novosemails.add(sc.nextLine());
+        // }
 
-      if (crud.U(novaConta)) {
-        System.out.println("Conta alterada");
+        System.out.print("Digite o novo nome de usuario-> ");
+        novoNomeUsuario = sc.nextLine();
+        System.out.print("Digite a nova Senha-> ");
+        novaSenha = sc.nextLine();
+        System.out.print("Digite o novo CPF-> ");
+        novoCpf = sc.nextLine();
+        System.out.print("Digite a nova Cidade-> ");
+        novaCidade = sc.nextLine();
+
+        ContaBancaria novaConta = new ContaBancaria((byte) id, novoNome, novoNomeUsuario, novaSenha, novoCpf, novaCidade, 0, 0);
+
+        if (crud.U(novaConta)) {
+          System.out.println("Conta alterada");
+        } else {
+          System.out.println("erro");
+        }
       } else {
         System.out.println("erro");
       }
-    } else {
-      System.out.println("erro");
+      System.out.println("Aperte Enter para voltar para o menu...");
+      sc.nextLine();
     }
-    System.out.println("Aperte Enter para voltar para o menu...");
-    sc.nextLine();
   }
 
   /**
@@ -160,7 +199,7 @@ public class Menu extends ContaBancaria {
   public static void op4() {
     Menu.limpatela();
     System.out.println("+-------------------------------------------+");
-    System.out.println("|        Remover uma Conta                   |");
+    System.out.println("|        Remover uma Conta                  |");
     System.out.println("+-------------------------------------------+");
     CRUD crud = new CRUD();
     try (Scanner sc = new Scanner(System.in)) {
@@ -178,6 +217,5 @@ public class Menu extends ContaBancaria {
 
   }
 
-  //AINDA EM DESENVOLVIMENTO, DESCULA TENHO MUITO O QUE FAZER AINDA ;-;
 
 }

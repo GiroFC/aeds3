@@ -1,3 +1,9 @@
+/**
+ * Classe CRUD para fazer as alterações no arquivo contass.db
+ * @author Igor Franco
+ * Matrícula: 750077
+ */
+
 import java.io.*;
 
 public class CRUD {
@@ -141,7 +147,7 @@ public class CRUD {
             int TAM;
     
             arq = new RandomAccessFile(nomeDoArquivo, "rw");
-            arq.seek(4);
+            arq.seek(5);
     
             while(arq.getFilePointer() < arq.length()) {
                 posicao = arq.getFilePointer();
