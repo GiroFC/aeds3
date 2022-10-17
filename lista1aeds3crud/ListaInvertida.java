@@ -1,3 +1,5 @@
+package lista1aeds3crud;
+
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
 
@@ -266,7 +268,7 @@ public class ListaInvertida {
     }
 
     /**
-     * Funcao tem a funcao de deletar os indices do arqui e atualizar conforme as mudancas no arquivo original
+     * Funcao tem a funcao de deletar os indices do arquivo e atualizar conforme as mudancas no arquivo original
      * @param palavra -> nova palavra a ser atualizada
      * @param id -> id a ser deletado e/ou inserido
      * @param arquivo -> arquivo a ser lido
@@ -386,7 +388,7 @@ public class ListaInvertida {
                 }
             }
 
-            System.out.println("Os ID`s relacionados a palavra digitada foi: ");
+            System.out.println("\nOs ID`s relacionados à palavra digitada são: ");
             System.out.println(ids);
 
         } catch (Exception e) {
